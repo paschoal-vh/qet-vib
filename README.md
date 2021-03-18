@@ -17,7 +17,8 @@ Full arrows link functionalities available (Figure 1).
 
 The scripts called by QET-Vib_main.py are meant to generate visualization of vibrational modes, inputs and Raman intensities.  The module extract.py, vibrational eigenmodes (Q) obtained from dynmat.x output transforming them to XCrysDen file format. From the extracted eigenmodes coordinates raman_gen.py generates a series of pw.x and ph.x inputs to calculate the dielectric tensors from structures deformed along +Q and -Q. After the calculations, raman_calc.py assembles the dielectric tensors from ph.x calculations and outputs the intensities obtained within the far-from resonance approximation,[1] assuming backsttering geometry.
 
-Reference
+Reference:
+
 1-Skelton, et al., Lattice dynamics of the tin sulphides SnS2, SnS and Sn2S3: vibrational spectra and thermal transport. Phys. Chem. Chem. Phys., 2017, 19, 12452-12465. DOI: 10.1039/C7CP01680H. And references within. 
 
 ### Copyright
