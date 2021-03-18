@@ -6,7 +6,12 @@ QET-Vib
 
 
 QET-Vib: A Quantum Espresso Toolbox for Vibrational Spectroscopy
-This repository is under development!
+This repository is under development! Currently available functionalities are
+
+Full arrows link functionalities available (Figure 1).
+
+
+
 
 ### Copyright
 
@@ -15,5 +20,5 @@ Copyright (c) 2021, Vitor Paschoal
 
 #### Acknowledgements
  
-Project based on the 
-[Computational Molecular Science Python Cookiecutter](https://github.com/molssi/cookiecutter-cms) version 1.5.
+Project based on the [Computational Molecular Science Python Cookiecutter](https://github.com/molssi/cookiecutter-cms) version 1.5.
+Project developed with the support of FAPESP grant 2019/00207-0
