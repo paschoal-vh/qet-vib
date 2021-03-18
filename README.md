@@ -6,12 +6,18 @@ QET-Vib
 
 
 QET-Vib: A Quantum Espresso Toolbox for Vibrational Spectroscopy
+
 This repository is under development! Currently available functionalities are
 
 Full arrows link functionalities available (Figure 1).
 
 
 
+=======
+
+
+This repository is under development!
+>>>>>>> a61ffc1b3468b29ea7ff0d90f476df2301f48e7d
 
 ### Copyright
 
