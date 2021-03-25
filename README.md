@@ -20,10 +20,10 @@ Figure 1: Functionalities of the code under development (dashed arrows) and alre
   
 #### References:  
   
-- 1-Giannozzi, P., Andreussi, O., Brumme, T., Bunau, O., Buongiorno Nardelli, M., Calandra, M., … Baroni, S. (2017). Advanced capabilities for materials modelling with Quantum ESPRESSO. Journal of Physics: Condensed Matter, 29(46), 465901. DOI:[10.1088/1361-648X/aa8f79](https://doi.org/10.1088/1361-648X/aa8f79)  
-- 2-Kokalj, A. (1999). XCrySDen—a new program for displaying crystalline structures and electron densities. Journal of Molecular Graphics and Modelling, 17(3–4), 176–179. DOI:[10.1016/S1093-3263(99)00028-5](https://doi.org/10.1016/S1093-3263(99)00028-5)  
-- 3-Skelton, J. M., Burton, L. A., Jackson, A. J., Oba, F., Parker, S. C., & Walsh, A. (2017). Lattice dynamics of the tin sulphides SnS2 , SnS and Sn2S3 : vibrational spectra and thermal transport. Physical Chemistry Chemical Physics, 19(19), 12452–12465. DOI:[10.1039/C7CP01680H](https://doi.org/10.1039/C7CP01680H)  
-- 4-Zhang, F., Wang, H.-W., Tominaga, K., & Hayashi, M. (2016). Mixing of intermolecular and intramolecular vibrations in optical phonon modes: terahertz spectroscopy and solid-state density functional theory. Wiley Interdisciplinary Reviews: Computational Molecular Science, 6(4), 386–409. DOI:[10.1002/wcms.1256](https://doi.org/10.1002/wcms.1256)  
+ 1-Giannozzi, P., Andreussi, O., Brumme, T., Bunau, O., Buongiorno Nardelli, M., Calandra, M., … Baroni, S. (2017). Advanced capabilities for materials modelling with Quantum ESPRESSO. Journal of Physics: Condensed Matter, 29(46), 465901. DOI:[10.1088/1361-648X/aa8f79](https://doi.org/10.1088/1361-648X/aa8f79)  
+ 2-Kokalj, A. (1999). XCrySDen—a new program for displaying crystalline structures and electron densities. Journal of Molecular Graphics and Modelling, 17(3–4), 176–179. DOI:[10.1016/S1093-3263(99)00028-5](https://doi.org/10.1016/S1093-3263(99)00028-5)  
+ 3-Skelton, J. M., Burton, L. A., Jackson, A. J., Oba, F., Parker, S. C., & Walsh, A. (2017). Lattice dynamics of the tin sulphides SnS2 , SnS and Sn2S3 : vibrational spectra and thermal transport. Physical Chemistry Chemical Physics, 19(19), 12452–12465. DOI:[10.1039/C7CP01680H](https://doi.org/10.1039/C7CP01680H)  
+ 4-Zhang, F., Wang, H.-W., Tominaga, K., & Hayashi, M. (2016). Mixing of intermolecular and intramolecular vibrations in optical phonon modes: terahertz spectroscopy and solid-state density functional theory. Wiley Interdisciplinary Reviews: Computational Molecular Science, 6(4), 386–409. DOI:[10.1002/wcms.1256](https://doi.org/10.1002/wcms.1256)  
 
 
 #### Copyright
