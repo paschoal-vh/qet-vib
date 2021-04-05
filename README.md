@@ -1,6 +1,6 @@
 # QET-Vib: A Quantum Espresso Toolbox for Vibrational Spectroscopy
 
-#### This repository is under development!  
+#### This repository is under development some modules are being updated!
 
 The scripts called by qet_vib.py are meant to generate visualization of vibrational modes, inputs and Raman intensities using the Quantum espresso packge as   engine[1]. The module extract.py, vibrational eigenmodes (Q) obtained from dynmat.x output transforming them to XCrysDen[2] file format. From the extracted   eigenmodes coordinates raman_gen.py generates a series of pw.x and ph.x inputs to calculate the dielectric tensors from structures deformed along +Q and -Q.   
 After the calculations, raman_calc.py assembles the dielectric tensors from ph.x calculations and outputs the intensities obtained within the far-from resonance   approximation,[3] assuming backsttering geometry.Finally, the modes composition, assuming contributions from translational, librational and intramolecular   contributions following the method proposed by Zhang et al.[4]  
