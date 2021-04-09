@@ -4,7 +4,9 @@ QET-Vib: A Quantum Espresso Toolbox for Vibrational Spectroscopy
 """
 
 # Add imports here
-from .qet_vib import *
+from .data_management import *
+from .eigenvector_tools import *
+from .raman_tools import *
 
 # Handle versioneer
 from ._version import get_versions

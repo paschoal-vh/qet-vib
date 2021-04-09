@@ -1,4 +1,5 @@
 def calculate_intensity(mode_number,filename,amplitude=1):
+
     import numpy as np
     import re
     from os import mkdir, getcwd, path

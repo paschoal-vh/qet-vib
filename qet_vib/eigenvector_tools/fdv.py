@@ -1,4 +1,5 @@
 def fdv(mode_number,system,mode_place):
+
     import numpy as np
     import re
     from os import mkdir, getcwd, path
@@ -17,9 +18,9 @@ def fdv(mode_number,system,mode_place):
         for line in f:
             data.append(line.split())
   
-    primvec=np.array([[np.float(data[2][0]),np.float(data[2][1]),np.float(data[2][2])],
-                      [np.float(data[3][0]),np.float(data[3][1]),np.float(data[3][2])],
-                      [np.float(data[4][0]),np.float(data[4][1]),np.float(data[4][2])]])
+    primvec=np.array([[np.float(data[3][0]),np.float(data[3][1]),np.float(data[3][2])],
+                      [np.float(data[4][0]),np.float(data[4][1]),np.float(data[4][2])],
+                      [np.float(data[5][0]),np.float(data[5][1]),np.float(data[5][2])]])
     posx=[] 
     dsx=[] 
     posy=[]
@@ -31,12 +32,12 @@ def fdv(mode_number,system,mode_place):
     for ii in range(int(system['nat'])):
             atomlist.append(data[7+ii][0])
             mass.append(np.float(atomic_species[atomlist[ii]][0]))
-            posx.append(np.float(data[7+ii][1]))
-            posy.append(np.float(data[7+ii][2]))
-            posz.append(np.float(data[7+ii][3]))
-            dsx.append(np.float(data[7+ii][4])/(0.02626*atomic_species[atomlist[ii]][0]))
-            dsy.append(np.float(data[7+ii][5])/(0.02626*atomic_species[atomlist[ii]][0]))
-            dsz.append(np.float(data[7+ii][6])/(0.02626*atomic_species[atomlist[ii]][0]))
+            posx.append(np.float(data[8+ii][1]))
+            posy.append(np.float(data[8+ii][2]))
+            posz.append(np.float(data[8+ii][3]))
+            dsx.append(np.float(data[8+ii][4]))
+            dsy.append(np.float(data[8+ii][5]))
+            dsz.append(np.float(data[8+ii][6]))
     M=np.sum(mass)
     ds_x=np.array(dsx)
     ds_y=np.array(dsy)
