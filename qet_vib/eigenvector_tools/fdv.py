@@ -3,13 +3,9 @@ def fdv(mode_number,system,mode_place):
     import numpy as np
     import re
     from os import mkdir, getcwd, path
-    atomic_species={'N':[ 14.00674,'N.pbe-n-rrkjus_psl.1.0.0.UPF'],
-                'C':[12.01070,'C.pbe-n-rrkjus_psl.0.1.UPF'],
-                'O':[15.99940,'O.pbe-n-rrkjus_psl.1.0.0.UPF'],
-                'P':[30.97376,'P.pbe-nl-rrkjus_psl.1.0.0.UPF'],
-                'H':[ 1.00794,'H.pbe-rrkjus_psl.1.0.0.UPF'],
-                'S':[32.06000,'S.pbe-nl-rrkjus_psl.1.0.0.UPF'],
-                'F':[18.99840,'F.pbe-n-rrkjus_psl.1.0.0.UPF']}
+    from ..data_management import atomic_mass
+    
+    
     local=getcwd()
     mode_name='conf_'+str(mode_number)
     filename=local+'\\'+mode_place+'\conf_'+str(mode_number)+'.xsf'
@@ -31,7 +27,7 @@ def fdv(mode_number,system,mode_place):
     mass=[]
     for ii in range(int(system['nat'])):
             atomlist.append(data[7+ii][0])
-            mass.append(np.float(atomic_species[atomlist[ii]][0]))
+            mass.append(np.float(atomic_mass(atomlist[ii]))
             posx.append(np.float(data[8+ii][1]))
             posy.append(np.float(data[8+ii][2]))
             posz.append(np.float(data[8+ii][3]))

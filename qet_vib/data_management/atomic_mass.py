@@ -1,6 +1,10 @@
 def atomic_mass(element):
-    
-    
+
+    """
+    Compilation of common elements and their most abundant/stable isotopes. 
+    Isotopes to be included in future versions.
+
+    """
     atomic_species={'H'  : [1,1.00782503223] 
 	'D'  : [2,2.01410177812]
 	'T'  : [3,3.01604927790]
