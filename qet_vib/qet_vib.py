@@ -6,10 +6,10 @@ Handles the primary functions
 """
 
 import sys, argparse, numpy
-from .data_management import atomic_mass, extract, pwin
-from .eigenvector_tools import fdv
-from .raman_tools import raman_gen, raman_calc
-#from .born_tools import born_gen, born_calc
+from data_management import atomic_mass, extract, pwin
+from eigenvector_tools import fdv
+from raman_tools import raman_gen, raman_calc
+#from born_tools import born_gen, born_calc
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
     parser.add_argument('--pwin', default='pw.in',
                         help='Name of the pw.x input file used in for the ph.x '\
                         'calculations, defaults to pw.in')
-    parser.add_argument('--raman_gen',nargs='append'
+    parser.add_argument('--raman_gen',nargs='append',
                         help='Generate Raman inputs for calculations with DFPT+'\
                         'Finite difference approach. Expects as arguments mode'\
                         'number, the directory from --extract, other parameters'\
@@ -41,12 +41,12 @@ def main():
                         'deformation done to the reference structure in the'\
                         'direction of the eigenvector.'\
                         'e.g. --raman_gen 1;0.1 --pwin pw.in')
-    parser.add_argument('--raman_calc',nargs='append'
+    parser.add_argument('--raman_calc',nargs='append',
                         help='Calculate Raman intensities from DFPT+finite '\
                         'difference method. Takes as arguments mode number and'\
                         'the name of the ph.x output (which defaults to ph.out)'\
                         'e.g. --raman_calc 1;ph.out')
-#    parser.add_argument('--born_gen',nargs='append'
+#    parser.add_argument('--born_gen',nargs='append',
 #                        help='Generate Born charge tensor and dielectric constant'\
 #                        'inputs for calculations with the finite difference method.')
     args=parser.parse_args()
