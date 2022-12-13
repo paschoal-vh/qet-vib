@@ -19,7 +19,7 @@ def main():
 
     parser.add_argument('--extract',action='append',
                         help='Call extraction module for q=(0 0 0) eigenvectors.'\
-                        'Arguments are filename with the eigenvectors (defaults'\
+                        'Arguments are filename with the eigenvectors (defaults '\
                         'to eigen.out). The output directory (defaults to '\
                         './test_output) And ph.x output (defaults to ph.out)'\
                         'e.g.: --extract eigen.out;test_output;ph.out')
