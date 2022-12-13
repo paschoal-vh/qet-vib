@@ -27,7 +27,7 @@ def fdv(mode_number,system,mode_place):
     mass=[]
     for ii in range(int(system['nat'])):
             atomlist.append(data[7+ii][0])
-            mass.append(np.float(atomic_mass(atomlist[ii]))
+            mass.append(np.float(atomic_mass(atomlist[ii])))
             posx.append(np.float(data[8+ii][1]))
             posy.append(np.float(data[8+ii][2]))
             posz.append(np.float(data[8+ii][3]))
