@@ -2,9 +2,8 @@ def atomic_mass(element):
 
     """
     Compilation of common elements and their most abundant/stable isotopes. 
-
     """
-     atomic_species={'H'  : [1,1.00782503223],
+    atomic_species={'H'  : [1,1.00782503223],
                     'D'  : [2,2.01410177812],
                     'T'  : [3,3.01604927790],
                     'He' : [4,4.00260325413],
@@ -58,8 +57,6 @@ def atomic_mass(element):
                     'Cs' : [133,132.9054519610],
                     'Ba' : [138,137.90524700],
                     'Au' : [197,196.96656879],
-        'Pb' : [208,207.9766525] }
-
+                    'Pb' : [208,207.9766525] }
     mass=atomic_species[element][1]
-
     return(mass)
