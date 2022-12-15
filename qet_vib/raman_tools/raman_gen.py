@@ -7,9 +7,9 @@ def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,
     with open(filename) as f:
         for line in f:
             data.append(line.split())
-    primvec=np.array([[np.float(data[2][0]),np.float(data[2][1]),np.float(data[2][2])],
-                      [np.float(data[3][0]),np.float(data[3][1]),np.float(data[3][2])],
-                      [np.float(data[4][0]),np.float(data[4][1]),np.float(data[4][2])]])
+    primvec=np.array([[float(data[2][0]),float(data[2][1]),float(data[2][2])],
+                      [float(data[3][0]),float(data[3][1]),float(data[3][2])],
+                      [float(data[4][0]),float(data[4][1]),float(data[4][2])]])
     posx=[] 
     dsx=[] 
     posy=[]
@@ -19,18 +19,18 @@ def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,
     atomlist=[]
     for ii in range(int(system['nat'])):
             atomlist.append(data[7+ii][0])
-            posx.append(np.float(data[7+ii][1]))
-            posy.append(np.float(data[7+ii][2]))
-            posz.append(np.float(data[7+ii][3]))
-            dsx.append(np.float(data[7+ii][4])*(2*hart*atomic_species[atomlist[ii]][0]))
-            dsy.append(np.float(data[7+ii][5])*(2*hart*atomic_species[atomlist[ii]][0]))
-            dsz.append(np.float(data[7+ii][6])*(2*hart*atomic_species[atomlist[ii]][0]))
+            posx.append(float(data[7+ii][1]))
+            posy.append(float(data[7+ii][2]))
+            posz.append(float(data[7+ii][3]))
+            dsx.append(float(data[7+ii][4])*(2*hart*atomic_species[atomlist[ii]][0]))
+            dsy.append(float(data[7+ii][5])*(2*hart*atomic_species[atomlist[ii]][0]))
+            dsz.append(float(data[7+ii][6])*(2*hart*atomic_species[atomlist[ii]][0]))
     norm_displacement=np.linalg.norm(dsx)**2+np.linalg.norm(dsy)**2+np.linalg.norm(dsz)**2
     system_name=str(system_name)
     appendix='\ms_'+system_name+'\mode_'+str(n_conf)
     mkdir(local+appendix)
     filelocation=local+appendix
-    file=open(filelocation+'\pw.choline.in','w')
+    file=open(filelocation+'\pw.in','w')
     file.write('&CONTROL\n')
     file.write('    '+'calculation'+'='+'\''+control['calculation_type']+'\''+','+'\n')
     file.write('    '+'prefix'+'='+'\''+control['prefix_type']+'\''+','+'\n')
