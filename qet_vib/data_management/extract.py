@@ -100,8 +100,8 @@ def extract(filename='eigen.out',output_dir='test_output',phx_output='ph.out'):
                 crystal_dim_place=i-1
             for match in re.finditer(prop4,line):  ##find where the frequencies are
                 crystal_place=i+3
-    Natoms=np.int(data[Nat_place][0].split('=')[1])
-    Alattice=np.float(data[celldm_place[0]][0].lstrip().split()[1])*bohr2angstrom
+    Natoms=int(data[Nat_place][0].split('=')[1])
+    Alattice=float(data[celldm_place[0]][0].lstrip().split()[1])*bohr2angstrom
     
     a1=np.array([float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[3]),
                  float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[4]),
