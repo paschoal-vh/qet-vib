@@ -58,7 +58,7 @@ def extract(filename='eigen.out',output_dir='test_output',phx_output='ph.out'):
     
     n_conf=len(freq_list)
     for i in range(n_conf):
-        frequencies.append(np.float(freq_list[i][0].rstrip().replace("("," ").replace(")"," ").split()[6]))
+        frequencies.append(float(freq_list[i][0].rstrip().replace("("," ").replace(")"," ").split()[6]))
     ## separate the eigenmodes in their x,y,z components 
 
     eigenmode_x=[]
@@ -66,9 +66,9 @@ def extract(filename='eigen.out',output_dir='test_output',phx_output='ph.out'):
     eigenmode_z=[]
     
     for i in range(len(modes)):
-        eigenmode_x.append(np.float(modes[i][1].strip())*bohr2angstrom)
-        eigenmode_y.append(np.float(modes[i][3].strip())*bohr2angstrom)
-        eigenmode_z.append(np.float(modes[i][5].strip())*bohr2angstrom)
+        eigenmode_x.append(float(modes[i][1].strip())*bohr2angstrom)
+        eigenmode_y.append(float(modes[i][3].strip())*bohr2angstrom)
+        eigenmode_z.append(float(modes[i][5].strip())*bohr2angstrom)
     
     ##begin extracting information from phx_output
     del data, modes, p1, p2, p3, prop1, prop2, prop3, freq_list
@@ -103,17 +103,17 @@ def extract(filename='eigen.out',output_dir='test_output',phx_output='ph.out'):
     Natoms=np.int(data[Nat_place][0].split('=')[1])
     Alattice=np.float(data[celldm_place[0]][0].lstrip().split()[1])*bohr2angstrom
     
-    a1=np.array([np.float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[3]),
-                 np.float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[4]),
-                 np.float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[5])])
+    a1=np.array([float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[3]),
+                 float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[4]),
+                 float(data[crystal_dim_place+1][0].lstrip().rstrip().split()[5])])
     
-    a2=np.array([np.float(data[crystal_dim_place+2][0].lstrip().rstrip().split()[3]),
-                 np.float(data[crystal_dim_place+2][0].lstrip().rstrip().split()[4]),
-                 np.float(data[crystal_dim_place+2][0].lstrip().rstrip().split()[5])])
+    a2=np.array([float(data[crystal_dim_place+2][0].lstrip().rstrip().split()[3]),
+                 float(data[crystal_dim_place+2][0].lstrip().rstrip().split()[4]),
+                 float(data[crystal_dim_place+2][0].lstrip().rstrip().split()[5])])
     
-    a3=np.array([np.float(data[crystal_dim_place+3][0].lstrip().rstrip().split()[3]),
-                 np.float(data[crystal_dim_place+3][0].lstrip().rstrip().split()[4]),
-                 np.float(data[crystal_dim_place+3][0].lstrip().rstrip().split()[5])])
+    a3=np.array([float(data[crystal_dim_place+3][0].lstrip().rstrip().split()[3]),
+                 float(data[crystal_dim_place+3][0].lstrip().rstrip().split()[4]),
+                 float(data[crystal_dim_place+3][0].lstrip().rstrip().split()[5])])
     
     Cell_volume=np.abs(np.dot(np.cross(a1,a2),a3))*Alattice**3
     primvec=np.array([a1,a2,a3])*Alattice
@@ -123,9 +123,9 @@ def extract(filename='eigen.out',output_dir='test_output',phx_output='ph.out'):
     
     for i in range(1,Natoms+1):
         atomlist.append(data[crystal_place+i][0].lstrip().split()[1])
-        crystal_pos.append([np.float(data[crystal_place+i][0].lstrip().split()[7])*Alattice,
-                            np.float(data[crystal_place+i][0].lstrip().split()[8])*Alattice,
-                            np.float(data[crystal_place+i][0].lstrip().split()[9])*Alattice])
+        crystal_pos.append([float(data[crystal_place+i][0].lstrip().split()[7])*Alattice,
+                            float(data[crystal_place+i][0].lstrip().split()[8])*Alattice,
+                            float(data[crystal_place+i][0].lstrip().split()[9])*Alattice])
     
     
     filelocation=local+'\\'+str(output_dir)
