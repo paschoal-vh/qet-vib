@@ -1,15 +1,16 @@
 def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,k_points,a=1):
     import numpy as np
     from os import mkdir, getcwd, path
+    hart=43597.447222071 #hartree per Angstrom per picosecond
     local=getcwd()
     filename=local+'\\'+str(extract_directory)+'\conf_'+str(n_conf)+'.xsf'
     data=[]
     with open(filename) as f:
         for line in f:
             data.append(line.split())
-    primvec=np.array([[float(data[2][0]),float(data[2][1]),float(data[2][2])],
-                      [float(data[3][0]),float(data[3][1]),float(data[3][2])],
-                      [float(data[4][0]),float(data[4][1]),float(data[4][2])]])
+    primvec=np.array([[float(data[3][0]),float(data[3][1]),float(data[3][2])],
+                      [float(data[4][0]),float(data[4][1]),float(data[4][2])],
+                      [float(data[5][0]),float(data[5][1]),float(data[5][2])]])
     posx=[] 
     dsx=[] 
     posy=[]
@@ -18,16 +19,21 @@ def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,
     dsz=[]
     atomlist=[]
     for ii in range(int(system['nat'])):
-            atomlist.append(data[7+ii][0])
-            posx.append(float(data[7+ii][1]))
-            posy.append(float(data[7+ii][2]))
-            posz.append(float(data[7+ii][3]))
-            dsx.append(float(data[7+ii][4])*(2*hart*atomic_species[atomlist[ii]][0]))
-            dsy.append(float(data[7+ii][5])*(2*hart*atomic_species[atomlist[ii]][0]))
-            dsz.append(float(data[7+ii][6])*(2*hart*atomic_species[atomlist[ii]][0]))
+            atomlist.append(data[8+ii][0])
+            posx.append(float(data[8+ii][1]))
+            posy.append(float(data[8+ii][2]))
+            posz.append(float(data[8+ii][3]))
+            dsx.append(float(data[8+ii][4])*(2*hart*atomic_species[atomlist[ii]][0]))
+            dsy.append(float(data[8+ii][5])*(2*hart*atomic_species[atomlist[ii]][0]))
+            dsz.append(float(data[8+ii][6])*(2*hart*atomic_species[atomlist[ii]][0]))
     norm_displacement=np.linalg.norm(dsx)**2+np.linalg.norm(dsy)**2+np.linalg.norm(dsz)**2
     system_name=str(system_name)
-    appendix='\ms_'+system_name+'\mode_'+str(n_conf)
+    prefix='\ms_'+system_name
+    isExist=path.exists(local+prefix)
+    if isExist == False:
+        mkdir(local+prefix)
+    suffix='\mode_'+str(n_conf)
+    appendix=prefix+suffix
     mkdir(local+appendix)
     filelocation=local+appendix
     file=open(filelocation+'\pw.in','w')
@@ -45,6 +51,7 @@ def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,
     file.write('    '+'ecutwfc'+'='+str(system['ecutwfc'])+','+'\n')
     file.write('    '+'ecutrho'+'='+str(system['ecutrho'])+','+'\n')
     file.write('    '+'vdw_corr'+'='+'\''+str(system['vdw_corr'])+'\''+','+'\n')
+    file.write('    '+'dftd3_version'+'='+str(system['dftd3_version'])+','+'\n')
     file.write('/\n')
     file.write('\n')
     file.write('&ELECTRONS\n')
@@ -68,10 +75,14 @@ def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,
     file.write('K_POINTS automatic\n')
     file.write('%d'' ' '%d' ' ' '%d' ' ' '%d' ' ' '%d' ' ' '%d' % (k_points[0],k_points[1],k_points[2],k_points[3],k_points[4],k_points[5]))
     file.close()
-    appendix='\ps_'+str(system_name)+'\mode_'+str(n_conf)
+    prefix='\ps_'+system_name
+    if path.exists(local+prefix) == False:
+        mkdir(local+prefix)
+    suffix='\mode_'+str(n_conf)
+    appendix=prefix+suffix
     mkdir(local+appendix)
     filelocation=local+appendix
-    file=open(filelocation+'\pw.choline.in','w')
+    file=open(filelocation+'\pw.in','w')
     file.write('&CONTROL\n')
     file.write('    '+'calculation'+'='+'\''+control['calculation_type']+'\''+','+'\n')
     file.write('    '+'prefix'+'='+'\''+control['prefix_type']+'\''+','+'\n')
@@ -86,6 +97,7 @@ def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,
     file.write('    '+'ecutwfc'+'='+str(system['ecutwfc'])+','+'\n')
     file.write('    '+'ecutrho'+'='+str(system['ecutrho'])+','+'\n')
     file.write('    '+'vdw_corr'+'='+'\''+str(system['vdw_corr'])+'\''+','+'\n')
+    file.write('    '+'dftd3_version'+'='+str(system['dftd3_version'])+','+'\n')
     file.write('/\n')
     file.write('\n')
     file.write('&ELECTRONS\n')
