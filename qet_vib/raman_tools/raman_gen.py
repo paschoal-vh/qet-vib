@@ -1,123 +1,70 @@
-def generate_Raman(n_conf,extract_directory,system_name,control,system,electron,k_points,a=1):
+def calculate_intensity(mode_number,sys_name,filename,amplitude=1):
+
     import numpy as np
+    import re
     from os import mkdir, getcwd, path
-    hart=43597.447222071 #hartree per Angstrom per picosecond
     local=getcwd()
-    filename=local+'\\'+str(extract_directory)+'\conf_'+str(n_conf)+'.xsf'
+    system_name=str(sys_name)
+    minus_deform=local+"\\ms_"+system_name+"\mode_"+str(mode_number)
+    plus_deform=local+"\\ps_"+system_name+"\mode_"+str(mode_number)
+    filename=str(filename)
+    c=0
+    if path.isfile(plus_deform+'\\'+filename):
+        c=c+1
+    else:
+        print('plus deform not found')
+    if path.isfile(minus_deform+'\\'+filename):
+        c=c+1
+    else:
+        print('minus deform not found')
+    if (c!=2):
+        print("not ok")
     data=[]
-    with open(filename) as f:
-        for line in f:
-            data.append(line.split())
-    primvec=np.array([[float(data[3][0]),float(data[3][1]),float(data[3][2])],
-                      [float(data[4][0]),float(data[4][1]),float(data[4][2])],
-                      [float(data[5][0]),float(data[5][1]),float(data[5][2])]])
-    posx=[] 
-    dsx=[] 
-    posy=[]
-    dsy=[] 
-    posz=[]
-    dsz=[]
-    atomlist=[]
-    for ii in range(int(system['nat'])):
-            atomlist.append(data[8+ii][0])
-            posx.append(float(data[8+ii][1]))
-            posy.append(float(data[8+ii][2]))
-            posz.append(float(data[8+ii][3]))
-            dsx.append(float(data[8+ii][4])*(2*hart*atomic_species[atomlist[ii]][0]))
-            dsy.append(float(data[8+ii][5])*(2*hart*atomic_species[atomlist[ii]][0]))
-            dsz.append(float(data[8+ii][6])*(2*hart*atomic_species[atomlist[ii]][0]))
-    norm_displacement=np.linalg.norm(dsx)**2+np.linalg.norm(dsy)**2+np.linalg.norm(dsz)**2
-    system_name=str(system_name)
-    prefix='\ms_'+system_name
-    isExist=path.exists(local+prefix)
-    if isExist == False:
-        mkdir(local+prefix)
-    suffix='\mode_'+str(n_conf)
-    appendix=prefix+suffix
-    mkdir(local+appendix)
-    filelocation=local+appendix
-    file=open(filelocation+'\pw.in','w')
-    file.write('&CONTROL\n')
-    file.write('    '+'calculation'+'='+'\''+control['calculation_type']+'\''+','+'\n')
-    file.write('    '+'prefix'+'='+'\''+control['prefix_type']+'\''+','+'\n')
-    file.write('    '+'pseudo_dir'+'='+'\''+control['pseudo_dir']+'\''+','+'\n')
-    file.write('    '+'outdir'+'='+'\''+control['outdir']+appendix.replace("\\" , '/')+'\''+','+'\n')
-    file.write('/\n')
-    file.write('\n')
-    file.write('&SYSTEM\n')
-    file.write('    '+'ibrav'+'='+str(system['ibrav'])+','+'\n')
-    file.write('    '+'nat'+'='+str(system['nat'])+','+'\n')
-    file.write('    '+'ntyp'+'='+str(system['ntyp'])+','+'\n')
-    file.write('    '+'ecutwfc'+'='+str(system['ecutwfc'])+','+'\n')
-    file.write('    '+'ecutrho'+'='+str(system['ecutrho'])+','+'\n')
-    file.write('    '+'vdw_corr'+'='+'\''+str(system['vdw_corr'])+'\''+','+'\n')
-    file.write('    '+'dftd3_version'+'='+str(system['dftd3_version'])+','+'\n')
-    file.write('/\n')
-    file.write('\n')
-    file.write('&ELECTRONS\n')
-    file.write('    '+'conv_thr'+'='+str(electron['conv_thr']).replace('e','d')+'\n')
-    file.write('/\n')
-    file.write('\n')
-    file.write('ATOMIC_SPECIES\n')
-    atomtypes=np.unique(atomlist)
-    for ii in range(len(atomtypes)):
-        file.write(atomtypes[ii]+'    '+str(atomic_species[atomtypes[ii]][0])+'    '+atomic_species[atomtypes[ii]][1].strip('\'')+'\n')
-    file.write('\n')
-    file.write('CELL_PARAMETERS angstrom\n')
-    file.write('    ''%.9f' '    ' '%.9f' '    ' '%.9f''\n' % (primvec[0][0],primvec[0][1],primvec[0][2]))
-    file.write('    ''%.9f' '    ' '%.9f' '    ' '%.9f''\n' % (primvec[1][0],primvec[1][1],primvec[1][2]))
-    file.write('    ''%.9f' '    ' '%.9f' '    ' '%.9f''\n' % (primvec[2][0],primvec[2][1],primvec[2][2]))
-    file.write('\n')
-    file.write('ATOMIC_POSITIONS angstrom\n')
-    for jj in range(int(system['nat'])):
-        file.write(atomlist[jj]+'   ' '%.9f' '   ' '%.9f' '   ' '%.9f\n'%(posx[jj]-a*dsx[jj]/norm_displacement**(1/2),posy[jj]-a*dsy[jj]/norm_displacement**(1/2),posz[jj]-a*dsz[jj]/norm_displacement**(1/2)))
-    file.write('\n')
-    file.write('K_POINTS automatic\n')
-    file.write('%d'' ' '%d' ' ' '%d' ' ' '%d' ' ' '%d' ' ' '%d' % (k_points[0],k_points[1],k_points[2],k_points[3],k_points[4],k_points[5]))
-    file.close()
-    prefix='\ps_'+system_name
-    if path.exists(local+prefix) == False:
-        mkdir(local+prefix)
-    suffix='\mode_'+str(n_conf)
-    appendix=prefix+suffix
-    mkdir(local+appendix)
-    filelocation=local+appendix
-    file=open(filelocation+'\pw.in','w')
-    file.write('&CONTROL\n')
-    file.write('    '+'calculation'+'='+'\''+control['calculation_type']+'\''+','+'\n')
-    file.write('    '+'prefix'+'='+'\''+control['prefix_type']+'\''+','+'\n')
-    file.write('    '+'pseudo_dir'+'='+'\''+control['pseudo_dir']+'\''+','+'\n')
-    file.write('    '+'outdir'+'='+'\''+control['outdir']+appendix.replace("\\" , '/')+'\''+','+'\n')
-    file.write('/\n')
-    file.write('\n')
-    file.write('&SYSTEM\n')
-    file.write('    '+'ibrav'+'='+str(system['ibrav'])+','+'\n')
-    file.write('    '+'nat'+'='+str(system['nat'])+','+'\n')
-    file.write('    '+'ntyp'+'='+str(system['ntyp'])+','+'\n')
-    file.write('    '+'ecutwfc'+'='+str(system['ecutwfc'])+','+'\n')
-    file.write('    '+'ecutrho'+'='+str(system['ecutrho'])+','+'\n')
-    file.write('    '+'vdw_corr'+'='+'\''+str(system['vdw_corr'])+'\''+','+'\n')
-    file.write('    '+'dftd3_version'+'='+str(system['dftd3_version'])+','+'\n')
-    file.write('/\n')
-    file.write('\n')
-    file.write('&ELECTRONS\n')
-    file.write('    '+'conv_thr'+'='+str(electron['conv_thr']).replace('e','d')+'\n')
-    file.write('/\n')
-    file.write('\n')
-    file.write('ATOMIC_SPECIES\n')
-    atomtypes=np.unique(atomlist)
-    for ii in range(len(atomtypes)):
-        file.write(atomtypes[ii]+'    '+str(atomic_species[atomtypes[ii]][0])+'    '+atomic_species[atomtypes[ii]][1].strip('\'')+'\n')
-    file.write('\n')
-    file.write('CELL_PARAMETERS angstrom\n')
-    file.write('    ''%.9f' '    ' '%.9f' '    ' '%.9f''\n' % (primvec[0][0],primvec[0][1],primvec[0][2]))
-    file.write('    ''%.9f' '    ' '%.9f' '    ' '%.9f''\n' % (primvec[1][0],primvec[1][1],primvec[1][2]))
-    file.write('    ''%.9f' '    ' '%.9f' '    ' '%.9f''\n' % (primvec[2][0],primvec[2][1],primvec[2][2]))
-    file.write('\n')
-    file.write('ATOMIC_POSITIONS angstrom\n')
-    for jj in range(int(system['nat'])):
-        file.write(atomlist[jj]+'   ' '%.9f' '   ' '%.9f' '   ' '%.9f\n'%(posx[jj]+a*dsx[jj]/norm_displacement**(1/2),posy[jj]+a*dsy[jj]/norm_displacement**(1/2),posz[jj]+a*dsz[jj]/norm_displacement**(1/2)))
-    file.write('\n')
-    file.write('K_POINTS automatic\n')
-    file.write('%d'' ' '%d' ' ' '%d' ' ' '%d' ' ' '%d' ' ' '%d' % (k_points[0],k_points[1],k_points[2],k_points[3],k_points[4],k_points[5]))
-    file.close()
+    p="Dielectric constant in cartesian axis"
+    prop=re.compile(p)
+    i=0
+    with open(plus_deform+'\\'+filename,'r') as pf:
+        for line in pf:
+            i+=1
+            data.append(line.split('\n'))
+            for match in re.finditer(prop,line):
+                dielectric_place=i
+    exx_p=float(data[dielectric_place+1][0].split()[1])
+    exy_p=float(data[dielectric_place+1][0].split()[2])
+    exz_p=float(data[dielectric_place+1][0].split()[3])
+    eyx_p=float(data[dielectric_place+2][0].split()[1])
+    eyy_p=float(data[dielectric_place+2][0].split()[2])
+    eyz_p=float(data[dielectric_place+2][0].split()[3])
+    ezx_p=float(data[dielectric_place+3][0].split()[1])
+    ezy_p=float(data[dielectric_place+3][0].split()[2])
+    ezz_p=float(data[dielectric_place+3][0].split()[3])
+    dielectric_p=np.array([[exx_p,exy_p,exz_p],[eyx_p,eyy_p,eyz_p],[ezx_p,ezy_p,ezz_p]])
+    data=[]
+    i=0
+    with open(minus_deform+'\\'+filename,'r') as pf:
+        for line in pf:
+            i+=1
+            data.append(line.split('\n'))
+            for match in re.finditer(prop,line):
+                dielectric_place=i
+    exx_n=float(data[dielectric_place+1][0].split()[1])
+    exy_n=float(data[dielectric_place+1][0].split()[2])
+    exz_n=float(data[dielectric_place+1][0].split()[3])
+    eyx_n=float(data[dielectric_place+2][0].split()[1])
+    eyy_n=float(data[dielectric_place+2][0].split()[2])
+    eyz_n=float(data[dielectric_place+2][0].split()[3])
+    ezx_n=float(data[dielectric_place+3][0].split()[1])
+    ezy_n=float(data[dielectric_place+3][0].split()[2])
+    ezz_n=float(data[dielectric_place+3][0].split()[3])
+    dielectric_n=np.array([[exx_n,exy_n,exz_n],[eyx_p,eyy_n,eyz_n],[ezx_n,ezy_n,ezz_n]])
+    
+    delta_dielectric=(dielectric_p-dielectric_n)/amplitude
+    
+    Ialpha=45.0*(1.0/3.0*(delta_dielectric[0][0]+delta_dielectric[1][1]+delta_dielectric[2][2]))**2
+    
+    Ibeta=7.0/2.0*((delta_dielectric[0][0]-delta_dielectric[1][1])**2+(delta_dielectric[0][0]-delta_dielectric[2][2])**2+
+                   (delta_dielectric[1][1]-delta_dielectric[2][2])**2)+6.0*(delta_dielectric[0][1]**2+delta_dielectric[0][2]**2+delta_dielectric[1][2]**2)
+    
+    Ibackscattering=Ialpha+Ibeta
+    
+    return(Ialpha,Ibeta,Ibackscattering)
