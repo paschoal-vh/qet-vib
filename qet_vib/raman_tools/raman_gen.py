@@ -1,12 +1,16 @@
-def calculate_intensity(mode_number,sys_name,filename,amplitude=1):
+def calculate_intensity(mode_number,sys_name='',filename='phG.out',amplitude=1):
 
     import numpy as np
     import re
     from os import mkdir, getcwd, path
     local=getcwd()
     system_name=str(sys_name)
-    minus_deform=local+"\\ms_"+system_name+"\mode_"+str(mode_number)
-    plus_deform=local+"\\ps_"+system_name+"\mode_"+str(mode_number)
+    if len(sys_name)==0:
+        minus_deform=local+"\\ms_"+"\mode_"+str(mode_number)
+        plus_deform=local+"\\ps_"+"\mode_"+str(mode_number)
+    else:
+        minus_deform=local+"\\ms_"+system_name+"\mode_"+str(mode_number)
+        plus_deform=local+"\\ps_"+system_name+"\mode_"+str(mode_number)
     filename=str(filename)
     c=0
     if path.isfile(plus_deform+'\\'+filename):
