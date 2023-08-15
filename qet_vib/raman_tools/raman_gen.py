@@ -6,8 +6,8 @@ def calculate_intensity(mode_number,sys_name='',filename='phG.out',amplitude=1):
     local=getcwd()
     system_name=str(sys_name)
     if len(sys_name)==0:
-        minus_deform=local+"\\ms_"+"\mode_"+str(mode_number)
-        plus_deform=local+"\\ps_"+"\mode_"+str(mode_number)
+        minus_deform=local+"\\ms"+"\mode_"+str(mode_number)
+        plus_deform=local+"\\ps"+"\mode_"+str(mode_number)
     else:
         minus_deform=local+"\\ms_"+system_name+"\mode_"+str(mode_number)
         plus_deform=local+"\\ps_"+system_name+"\mode_"+str(mode_number)
